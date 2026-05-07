@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+
+
+<!-- === Header Starts === -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>LayerInbetween: Occlusion-Aware Stroke Correspondence and Inbetweening with Automatic Layering</title>
+
+  <link href="./assets/bootstrap.min.css" rel="stylesheet">
+  <link href="./assets/font.css" rel="stylesheet" type="text/css">
+  <link href="./assets/style.css" rel="stylesheet" type="text/css">
+</head>
+<!-- === Header Ends === -->
+
+
+<body>
+
+
+<!-- === Home Section Starts === -->
+<div class="section">
+  <!-- === Title Starts === -->
+    <div class="title">
+      <b>LayerInbetween: Occlusion-Aware Stroke Correspondence and Inbetweening</b>
+      <br>
+      <b>with Automatic Layering</b>
+    </div>
+  <!-- === Title Ends === -->
+  <div class="author">
+    <a href="http://mo-haoran.com/" target="_blank">Haoran Mo</a><sup>1</sup>,&nbsp;
+    <a href="https://scholar.google.com/citations?user=dSiiT8YAAAAJ" target="_blank">Zhongyue Guan</a><sup>1,2</sup>,&nbsp;
+    <a href="https://scholar.google.com/citations?user=kPGo8-kAAAAJ" target="_blank">Yixin Hu</a><sup>3</sup>,&nbsp;
+    <a href="https://cislab.hkust-gz.edu.cn/members/zeyu-wang/" target="_blank">Zeyu Wang</a><sup>1,4</sup>
+  </div>
+  <div class="institution">
+    <sup>1</sup>The Hong Kong University of Science and Technology (Guangzhou),&nbsp;
+    <sup>2</sup>Tencent,
+    <br>
+    <sup>3</sup>Tencent America,&nbsp;
+    <sup>4</sup>The Hong Kong University of Science and Technology
+  </div>
+  <br>
+  <div class="institution">
+    <strong>ACM Transactions on Graphics (SIGGRAPH 2026, Journal track)</strong>
+  </div>
+  <div class="SigLogo" style="text-align: center; width: 100%;">
+    <img src="figures/sig26.png" style="width: 20%;">
+  </div>
+  <div class="link">
+    <a href="https://cislab.hkust-gz.edu.cn/media/documents/_SIGGRAPH_2026__LayerInbetween.pdf" target="_blank">[Paper]</a>&nbsp;
+    <a href="https://mo-haoran.com/files/projects/_SIGGRAPH_2026__LayerInbetween_supplementary.pdf" target="_blank">[Supplementary]</a>&nbsp;
+    <a href="https://github.com/MarkMoHR/LayerInbetween" target="_blank">[Code]</a>
+  </div>
+  <div class="teaser">
+    <img src="figures/teaser3.png" style="width: 100%;">
+  </div>
+  <div class="SigLogo" style="text-align: center; width: 100%;">
+    <img src="figures/gif-editing/horizontal-demo1.gif" style="width: 35%;">
+  </div>
+  <div class="teaser-text">
+    <font size="3">
+      Overview of LayerInbetween. Our framework predicts layered vector images for the input raster keyframes with one-to-one correspondences for visible
+and especially occluded strokes, which are used to produce inbetweening frames via stroke interpolation. Layers are predicted from the strokes to resolve
+occlusion during inbetweening. Our vector-based approach can facilitate convenient inbetweening editing. Raster keyframes are from <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14433" target="_blank">Jiang et al. [2022]</a>.
+    </font>
+  </div>
+</div>
+<!-- === Home Section Ends === -->
+
+
+<!-- === Overview Section Starts === -->
+<div class="section">
+  <div class="title">Abstract</div>
+  <div class="body">
+    Establishing one-to-one stroke correspondences is fundamental to vector-based animation inbetweening. Animators may face great challenges when handling occlusion, as occluded strokes must be drawn explicitly in keyframes and manually hidden frame by frame after stroke interpolation. To reduce tedious effort, we present LayerInbetween, an occlusion-aware framework for vector stroke correspondence and automatic inbetweening. It performs automatic layering to guide stroke tracing and correspondence finding for occluded strokes, and to resolve occlusion with layers in the inbetween frames. To predict occluded strokes, we propose a Global-Local Layer Transformation (GLLT) module that progressively improves the spatial alignment of strokes across keyframes via layer guidance, thereby indicating their potential positions. Our framework is trained on a synthetic dataset comprising 17k+ pairs of keyframes with occlusion and their stroke correspondences. Extensive experiments demonstrate the effectiveness of LayerInbetween compared with existing methods and its generalization capabilities to various types of drawings. In addition to its superior performance, our vector-based inbetweening method enables more flexible editing of 2D animation than raster-based video generation.</div>
+
+  <p style="text-align:center; font-size:23px; font-weight:bold">
+      Overall Introduction
+    <p>
+    <p style="text-align:center; font-size:20px">
+      (Or watch on <a href="https://www.bilibili.com/video/BV1WbdcBmEoq/" target="_blank">Bilibili</a>)
+      <br>
+      👇
+    <p>
+    <div style="position: relative; padding-top: 50%; text-align: center;">
+      <iframe src="https://www.youtube.com/embed/Yvq5bGbP8mw" title="SIGGRAPH 2026 (TOG) | LayerInbetween: Occlusion-Aware Stroke Correspondence and Inbetweening" frameborder=0
+              style="position: absolute; top: 1%; left: 10%; width: 80%; height: 100%;"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+    </div>
+</div>
+<!-- === Overview Section Ends === -->
+
+
+<!-- === Result Section Starts === -->
+<div class="section">
+  <div class="title">Method</div>
+  <div class="body">
+    <p style="text-align:center; font-size:23px; font-weight:bold">Framework Overview<p>
+    <img src="figures/framework2.png" width="100%">
+    <br>
+    <br>
+    <font size="4">
+      Illustration of the framework of LayerInbetween. (a) It achieves vector stroke correspondence for visible and occluded strokes and automatic inbetweening
+with occlusion resolving via layering. (b) The vector stroke correspondence model comprises an automatic layering step to construct stroke groups with regions
+and a stacking order, a Global-Local Layer Transformation (GLLT) module to improve stroke alignment between keyframes using layer guidance, and a stroke
+matching step to predict the corresponding strokes in the target frame.
+    </font>
+  </div>
+</div>
+<!-- === Result Section Ends === -->
+
+<!-- === Result Section Starts === -->
+<div class="section">
+  <div class="title">Results</div>
+  <div class="body">
+    While LayerInbetween is trained with clean single-character line art pairs,
+    it generalizes well to rough sketches , multi-character line art, complex scenes,
+    abstract drawings, and multi-keyframe sequences.
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">Clean Line Drawings<p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/2_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/2_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/2_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="16%"><img src="figures/raster/10_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/10_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/10_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes are from <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14433" target="_blank">Jiang et al. [2022]</a>.
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/20_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/20_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/20_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="16%"><img src="figures/raster/8_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/8_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/8_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes (left) are from <a href="https://ieeexplore.ieee.org/abstract/document/8803506" target="_blank">Narita et al. [2019]</a>.
+    Keyframes (right) are from <a href="https://github.com/none-master/SAIN" target="_blank">Shen et al. [2024]</a>.
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/12-reference.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/12-target.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/12_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="16%"><img src="figures/raster/7_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/7_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/7_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes (left) are from <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14433" target="_blank">Jiang et al. [2022]</a>.
+    Keyframes (right) are drawn by the author Zhongyue Guan.
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/21-1.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/21-2.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/21_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="16%"><img src="figures/raster/22-1.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/22-2.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/22_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes are from <a href="https://dl.acm.org/doi/abs/10.1145/508530.508552" target="_blank">Kort [2002]</a>.
+    <br>
+    <br>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">Rough Sketches<p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/50_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/50_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/50_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="16%"><img src="figures/raster/53_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/53_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/53_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes are from the <a href="https://www.cs.toronto.edu/creativeflow/" target="_blank">Creative Flow+ Dataset [Shugrina et al. 2019]</a>.
+    <br>
+    <br>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">Abstract Drawings<p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="16%"><img src="figures/raster/62_ref.png" width="100%"></td>
+        <td width="16%"><img src="figures/raster/62_tar.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/62_v3.gif" width="100%"></td>
+        <td width="4%"></td>
+        <td width="12.3%"><img src="figures/raster/64_ref_raw.png" width="100%"></td>
+        <td width="12.3%"><img src="figures/raster/64_tar_raw.png" width="100%"></td>
+        <td width="16%"><img src="figures/gif/64_v3.gif" width="100%"></td>
+      </tr>
+    </table>
+    Keyframes are from <a href="https://github.com/facebookresearch/AnimatedDrawings" target="_blank">Smith et al. [2023]</a>.
+    <br>
+    <br>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">Multi-Character Line Art<p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="20%"></td>
+        <td width="16%"><img src="figures/raster/39_ref.png" width="100%"></td>
+        <td width="5%"></td>
+        <td width="16%"><img src="figures/raster/39_tar.png" width="100%"></td>
+        <td width="5%"></td>
+        <td width="16%"><img src="figures/gif/39_v3.gif" width="100%"></td>
+        <td width="20%"></td>
+      </tr>
+    </table>
+    Keyframes are from the <a href="https://github.com/zhenglinpan/AnitaDataset" target="_blank">Anita dataset [Pan and Zhu 2024]</a>.
+    <br>
+    <br>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">Complex Scene / Multi-Keyframe Sequences<p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="7%"></td>
+        <td width="16%"><img src="figures/raster/42_ref.png" width="100%"></td>
+        <td width="7%"></td>
+        <td width="16%"><img src="figures/raster/42_tar.png" width="100%"></td>
+        <td width="7%"></td>
+        <td width="16%"><img src="figures/raster/42-3.png" width="100%"></td>
+        <td width="7%"></td>
+        <td width="16%"><img src="figures/gif/42_v3_comb.gif" width="100%"></td>
+        <td width="7%"></td>
+      </tr>
+    </table>
+    Keyframes are from the <a href="https://github.com/zhenglinpan/AnitaDataset" target="_blank">Anita dataset [Pan and Zhu 2024]</a>.
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="3%"></td>
+        <td width="16%"><img src="figures/raster/41_ref.png" width="100%"></td>
+        <td width="3%"></td>
+        <td width="16%"><img src="figures/raster/41_tar.png" width="100%"></td>
+        <td width="3%"></td>
+        <td width="16%"><img src="figures/raster/41_tar2.png" width="100%"></td>
+        <td width="3%"></td>
+        <td width="16%"><img src="figures/raster/41_tar3.png" width="100%"></td>
+        <td width="3%"></td>
+        <td width="16%"><img src="figures/gif/41_v3_sep.gif" width="100%"></td>
+        <td width="3%"></td>
+      </tr>
+    </table>
+    Keyframes are from the <a href="https://lisiyao21.github.io/projects/AnimeRun" target="_blank">AnimeRun dataset [Siyao et al. 2022]</a>.
+    <br>
+    <br>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">
+      Inbetweening Editing
+    <p>
+    <table width="100%" style="margin: 0pt auto; text-align: center; border-collapse: separate; border-spacing: 5pt;">
+      <tr>
+        <td width="10%"></td>
+        <td width="35%"><img src="figures/gif-editing/horizontal-demo2.gif" width="100%"></td>
+        <td width="10%"></td>
+        <td width="35%"><img src="figures/gif-editing/horizontal-demo3.gif" width="100%"></td>
+        <td width="10%"></td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 10pt; text-align:center; font-size:23px; font-weight:bold">
+      Comparisons with Existing Methods
+    <p>
+    <p style="text-align:center; font-size:20px">
+      (Or watch on <a href="https://www.bilibili.com/video/BV1PtdcB7EVq/" target="_blank">Bilibili</a>)
+      <br>
+      👇
+    <p>
+    <!-- Adjust the frame size based on the demo (EVERY project differs). -->
+    <div style="position: relative; padding-top: 50%; text-align: center;">
+      <iframe src="https://www.youtube.com/embed/-12WpJlyqKg" title="[Comparison results] SIGGRAPH 2026 (TOG) | LayerInbetween: Occlusion-Aware Inbetweening" frameborder=0
+              style="position: absolute; top: 1%; left: 10%; width: 80%; height: 100%;"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+<!-- === Result Section Ends === -->
+
+
+<!-- === Reference Section Starts === -->
+<div class="section">
+  <div class="bibtex">BibTeX</div>
+<pre>
+@article{mo2026layerinbetween,
+  title   = {LayerInbetween: Occlusion-Aware Stroke Correspondence and Inbetweening with Automatic Layering},
+  author  = {Mo, Haoran and Guan, Zhongyue and Hu, Yixin and Wang, Zeyu},
+  journal = {ACM Transactions on Graphics (TOG)},
+  year    = {2026},
+  volume  = {45},
+  number  = {4},
+  pages   = {1--17},
+  publisher={ACM New York, NY}
+}
+</pre>
+
+</div>
+<!-- === Reference Section Ends === -->
+
+
+</body>
+</html>
