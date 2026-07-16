@@ -1,11 +1,11 @@
 import json
 
-test_data_base = "test_examples"
-test_img_id = 7
-do_inv = False
-gen_time = 0  # 0-first gen; 1-second gen
+test_data_base = "test_examples"  # the base directory for test data
+test_img_id = 7  # the test image ID to be used for testing; this should correspond to a subdirectory in test_data_base
+do_inv = False  # whether to perform backward prediction; if False, we will perform forward prediction
+gen_time = 0  # 0 for first gen (2 keyframes); 1 for second gen (3 keyframes); 2 for third gen (4 keyframes)
 
-gpu_id = "1"
+gpu_id = "1"  # the GPU ID to be used
 
 if gen_time == 0:
     example_configs_path = "configs/example_configs.json"
