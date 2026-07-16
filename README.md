@@ -76,6 +76,15 @@ Prepare raster keyframes and the vector image for the first keyframe (following 
 
 Please name them to `X_ref.png`, `X_tar.png`, and `X.svg` using the same index `X`. 
 
+If the raster keyframes are **rough sketches**, please place them to `test_examples/raster_black/rough_raw/` folder first, and then run the following command for binarization and image squaring. The resulting clean keyframes will be saved to the `test_examples/raster_black/` folder:
+
+```bash
+python data_preprocessing/image_preprocess.py --image_id X
+```
+
+If the raster keyframes are **not square**, use the script and the command above after commenting out the `binarize(img)` and `darken(img)` in the script.
+
+
 ### Step 1: Forward Prediction
 
 Go to [configs/example_configs.py](configs/example_configs.py), and set the `test_img_id` to `X`. If you want to use the provided cases directly, please set the `test_img_id` to the corresponding image index. Then, run the following command:
