@@ -1,0 +1,42 @@
+{
+    "41": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "42": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "none",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -12,
+            "order_type": "manual",
+            "manual_order": [4, 0, 1, 2, 3]
+        }
+    }
+}

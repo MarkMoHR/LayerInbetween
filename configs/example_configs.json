@@ -1,0 +1,321 @@
+{
+    "2": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": false,
+
+        "use_target_layer": true,
+        "use_target_layer_mask": "none",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 3
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -6,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "7": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "box",
+            "mask_dilate_size": -8,
+            "order_type": "manual",
+            "manual_order": [0, 1, 2]
+        }
+    },
+    "8": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "9": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        }
+    },
+    "10": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        }
+    },
+    "11": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        }
+    },
+    "12": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "manual",
+            "manual_order": [4, 6, 5, 7, 2]
+        }
+    },
+    "20": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "21": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "22": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "39": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "none",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "box",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "41": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "42": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -12,
+            "order_type": "manual",
+            "manual_order": [4, 0, 1, 2, 3]
+        }
+    },
+    "50": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -16,
+            "order_type": "manual",
+            "manual_order": [1, 2, 0]
+        }
+    },
+    "53": {
+        "use_optical_flow": true,
+        "optical_flow_method": "gma",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -10,
+            "order_type": "manual",
+            "manual_order": [4, 3, 1, 2, 0]
+        }
+    },
+    "62": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": true,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -12,
+            "order_type": "area",
+            "manual_order": null
+        }
+    },
+    "64": {
+        "use_optical_flow": true,
+        "optical_flow_method": "raft",
+        "use_distance_transform": false,
+
+        "use_target_layer": false,
+        "use_target_layer_mask": "stroke",
+        "target_layer_method": "box_depth_ol+mask_line",
+
+        "target_layer_gen_configs": {
+            "mask_dilate_size": 5
+        },
+
+        "inbetweening_configs": {
+            "layering_method": "region_mask",
+            "mask_dilate_size": -8,
+            "order_type": "area",
+            "manual_order": null
+        }
+    }
+}
