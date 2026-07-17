@@ -1,6 +1,6 @@
 import os
 
-from configs.example_configs import gpu_id, test_data_base, test_img_id, example_info_map
+from configs.example_configs import gpu_id, test_data_base, test_img_id, example_info_map, do_inv
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu_id
 
 from PIL import Image
@@ -17,11 +17,11 @@ import cv2
 
 
 @torch.no_grad()
-def validate_anime(model, weight_name, iters=32, black_threshold=200):
+def validate_anime(data_base, model, weight_name, iters=32, black_threshold=200):
     """ Peform validation using the Sintel (train) split """
     model.eval()
 
-    save_dir = os.path.join(args.data_base, 'optical_flow')
+    save_dir = os.path.join(data_base, 'optical_flow')
 
     weight_name_sub = weight_name[weight_name.rfind('/') + 1: weight_name.rfind('.')]
     if args.use_distance_transform:
@@ -33,11 +33,11 @@ def validate_anime(model, weight_name, iters=32, black_threshold=200):
     os.makedirs(save_base_warped, exist_ok=True)
 
     if not args.is_binary:
-        image1_path = os.path.join(args.data_base, 'raster_black', "%s_ref.png" % args.image_id)
-        image2_path = os.path.join(args.data_base, 'raster_black', "%s_tar.png" % args.image_id)
+        image1_path = os.path.join(data_base, 'raster_black', "%s_ref.png" % args.image_id)
+        image2_path = os.path.join(data_base, 'raster_black', "%s_tar.png" % args.image_id)
     else:
-        image1_path = os.path.join(args.data_base, 'raster_black/binarized', "%s_ref.png" % args.image_id)
-        image2_path = os.path.join(args.data_base, 'raster_black/binarized', "%s_tar.png" % args.image_id)
+        image1_path = os.path.join(data_base, 'raster_black/binarized', "%s_ref.png" % args.image_id)
+        image2_path = os.path.join(data_base, 'raster_black/binarized', "%s_tar.png" % args.image_id)
 
     image1 = Image.open(image1_path).convert('RGB')
     image1 = np.array(image1, dtype=np.float32)[:, :, 0]  # (H, W), [0-stroke, 255-BG]
@@ -112,10 +112,12 @@ if __name__ == '__main__':
     else:
         raise ValueError("Unknown model name: {}".format(args.model_name))
 
+    data_base_input = args.data_base if not do_inv else os.path.join(args.data_base, '[0inv]')
+
     model.load_state_dict(torch.load(args.model))
     model.cuda()
     model.eval()
 
     print('Testing {}'.format(args.model))
     with torch.no_grad():
-        validate_anime(model.module, args.model)
+        validate_anime(data_base_input, model.module, args.model)

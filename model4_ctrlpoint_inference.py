@@ -1004,7 +1004,7 @@ class FullModel(object):
                     if show_i >= show_num:
                         break
 
-    def inference_full_real(self, save_root, test_max_batch_size=180, do_inv=False):
+    def inference_full_real(self, save_root, test_max_batch_size=180):
         # print('-' * 100)
         print('Inference of [Control Point Matching (4/4)] begins ...')
 

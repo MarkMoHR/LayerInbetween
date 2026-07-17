@@ -130,7 +130,7 @@ def tester_real_inv(model_params, mode):
         inference_full_real_root += '-[Gen%d]' % gen_time
     inference_full_real_root = os.path.join(inference_full_real_root, '[0inv]')
     os.makedirs(inference_full_real_root, exist_ok=True)
-    model.inference_full_real(inference_full_real_root, do_inv=True)
+    model.inference_full_real(inference_full_real_root)
 
 
 if __name__ == '__main__':

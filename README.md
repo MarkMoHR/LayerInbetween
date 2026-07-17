@@ -95,11 +95,60 @@ sh run_forward.sh
 
 This script includes several sub-processes. Refer to it for details. Finally, the output results of vector stroke correspondence are placed in `outputs/stroke_correspondence_results` folder.
 
+
+### Step 2: Inverse Prediction
+
+1. Prepare data for the inverse prediction:
+
+```bash
+PYTHONPATH=. python data_preprocessing/prepare_inverse_data.py
+```
+This will create a `test_examples/[0inv]/` folder, which stores raster images (i.e., alternating the original reference and target keyframes) and the SVG (i.e., the predicted vector image for the original target keyframe).
+
+2. Make a vector image `X.svg` for the missing strokes following the tutorial [here](tutorials/Krita_complement_strokes.md).
+
+3. Place the `X.svg` to the `test_examples/[0inv]/svg/` folder.
+
+4. Set `do_inv = True` in [configs/example_configs.py](configs/example_configs.py) to indicate the prediction direction. Then, run the following command:
+
+```bash
+sh run_inverse.sh
+```
+
+This script also includes several sub-processes. Finally, the output results of vector stroke correspondence for the complementary strokes are placed in `outputs/stroke_correspondence_results/[0inv]` folder.
+
+
+### Step 3: Combine Two Directions
+
+Combine the results of the two directions using the following command:
+
+```bash
+PYTHONPATH=. python data_preprocessing/combine_two_directions.py
+```
+
+Afterwards, the results are saved to `outputs/stroke_correspondence_results/[1comb]` folder.
+
+
 ### TODOs
 
-- [ ] Backward prediction
 - [ ] Occlusion resolving after interpolation
 - [ ] Multi-frame prediction
 
 
+## Citation
+
+If you use the code and models please cite:
+
+```
+@article{mo2026layerinbetween,
+  title={LayerInbetween: Occlusion-Aware Stroke Correspondence and Inbetweening with Automatic Layering},
+  author={Mo, Haoran and Guan, Zhongyue and Hu, Yixin and Wang, Zeyu},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={45},
+  number={4},
+  pages={1--18},
+  year={2026},
+  publisher={ACM New York, NY, USA}
+}
+```
 
