@@ -29,7 +29,7 @@ To avoid environment conflicts with SAM2, create a separate Conda environment na
 
 ### Download Checkpoints
 
-Our project relies on external models, including [optical flow estimation](https://github.com/lisiyao21/AnimeRun/tree/main/flow), [depth estimation](https://github.com/DepthAnything/Depth-Anything-V2), and [SAM2 video tracking](https://github.com/facebookresearch/sam2). Please download the corresponding models and place them according to the following file structure.
+Our project relies on external models, including [optical flow estimation](https://github.com/lisiyao21/AnimeRun/tree/main/flow#pretrained-weights), [depth estimation](https://github.com/DepthAnything/Depth-Anything-V2#pre-trained-models), and [SAM2 video tracking](https://github.com/facebookresearch/sam2#download-checkpoints). Please download the corresponding models and place them according to the following file structure.
 Our models can be downloaded [here](https://drive.google.com/file/d/1QKdDZc5uaYRXFBYIThIEF4vU1SmGrsWU/view?usp=sharing).
 
 ```
@@ -74,9 +74,9 @@ vgg_utils/
 
 Prepare raster keyframes and the vector image for the first keyframe (following the tutorial [here](https://github.com/MarkMoHR/JoSTC/blob/main/tutorials/Krita_vector_generation.md) to create SVGs). Then, place them to `test_examples/raster_black/` and `test_examples/svg/` folders.
 
-Please name them to `X_ref.png`, `X_tar.png`, and `X.svg` using the same index `X`. 
+Please name them `X_ref.png`, `X_tar.png`, and `X.svg` using the same index `X`. 
 
-If the raster keyframes are **rough sketches**, please place them to `test_examples/raster_black/rough_raw/` folder first, and then run the following command for binarization and image squaring. The resulting clean keyframes will be saved to the `test_examples/raster_black/` folder:
+If the raster keyframes are **rough sketches**, please place them in the `test_examples/raster_black/rough_raw/` folder first, and then run the following command for binarization and image squaring. The resulting clean keyframes will be saved to the `test_examples/raster_black/` folder:
 
 ```bash
 python data_preprocessing/image_preprocess.py --image_id X
@@ -93,7 +93,7 @@ Go to [configs/example_configs.py](configs/example_configs.py), and set the `tes
 sh run_forward.sh
 ```
 
-This script includes several sub-processes. Refer to it for details. Finally, the output results of vector stroke correspondence are placed in `outputs/stroke_correspondence_results` folder.
+This script includes several sub-processes. Refer to it for details. Finally, the output results of vector stroke correspondence are placed in the `outputs/stroke_correspondence_results` folder.
 
 
 ### Step 2: Inverse Prediction
@@ -115,7 +115,7 @@ This will create a `test_examples/[0inv]/` folder, which stores raster images (i
 sh run_inverse.sh
 ```
 
-This script also includes several sub-processes. Finally, the output results of vector stroke correspondence for the complementary strokes are placed in `outputs/stroke_correspondence_results/[0inv]` folder.
+This script also includes several sub-processes. Finally, the output results of vector stroke correspondence for the complementary strokes are placed in the `outputs/stroke_correspondence_results/[0inv]` folder.
 
 
 ### Step 3: Combine Two Directions
@@ -126,7 +126,7 @@ Combine the results of the two directions using the following command:
 PYTHONPATH=. python data_preprocessing/combine_two_directions.py
 ```
 
-Afterwards, the results are saved to `outputs/stroke_correspondence_results/[1comb]` folder.
+Afterward, the results are saved to the `outputs/stroke_correspondence_results/[1comb]` folder.
 
 
 ### TODOs
@@ -137,7 +137,7 @@ Afterwards, the results are saved to `outputs/stroke_correspondence_results/[1co
 
 ## Citation
 
-If you use the code and models please cite:
+If you use the code and models, please cite:
 
 ```
 @article{mo2026layerinbetween,
