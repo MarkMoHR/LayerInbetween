@@ -787,7 +787,7 @@ class RealLineDataLoader(object):
 
             if self.dataset_base_extra is not None:
                 if self.generation_time > 0:
-                    assert '-[Gen%d]' % self.generation_time in self.dataset_base_extra
+                    assert '-Gen%d' % self.generation_time in self.dataset_base_extra
                 if self.use_target_layer_mask == "none":
                     assert '[layer_mask_stroke]' not in self.dataset_base_extra
                 # Loading pseudo ref data during inverse prediction

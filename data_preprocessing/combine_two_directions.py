@@ -196,7 +196,7 @@ def main_real(database, process_img_id, vis_mode='v0', vis_layer=False):
 
     data_base_extra = "outputs/stroke_correspondence_results"
     if gen_time > 0:
-        data_base_extra += '-[Gen%d]' % gen_time
+        data_base_extra += '-Gen%d' % gen_time
 
     params_path_ref0 = os.path.join(database, 'vector-params', str(process_img_id) + '_ref.jsonl')
     params_path_tar0 = os.path.join(data_base_extra, 'params', 'tar_pred-' + str(process_img_id) + '.jsonl')

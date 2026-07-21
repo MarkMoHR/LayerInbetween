@@ -88,8 +88,6 @@ def tester_real(model_params, mode):
     # print('-' * 100)
 
     data_base = test_data_base
-    if gen_time > 0:
-        data_base += '-Gen' + str(gen_time)
     datasets = load_real_dataset(model_params, data_base=data_base, generation_time=gen_time)
     val_set = datasets[0]
 
@@ -118,8 +116,7 @@ def tester_real_inv(model_params, mode):
     data_base = test_data_base
     data_base_extra = "outputs/stroke_correspondence_results"
     if gen_time > 0:
-        data_base += '-Gen' + str(gen_time)
-        data_base_extra += '-[Gen%d]' % gen_time
+        data_base_extra += '-Gen%d' % gen_time
     data_base = os.path.join(data_base, '[0inv]')
     datasets = load_real_dataset(model_params, data_base=data_base, data_base_extra=data_base_extra,
                                  generation_time=gen_time)

@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from configs.example_configs import gpu_id, test_data_base, test_img_id
+from configs.example_configs import gpu_id, test_data_base, test_img_id, example_info_map
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu_id
 
 # if using Apple MPS, fall back to CPU for unsupported ops
@@ -220,8 +220,8 @@ def remove_inclusion_and_obtain_layers(split_type, sorted_layer_mask_list, linea
         layer_vis.save(save_path_layer_vis, 'PNG')
 
 
-def single_prompt_inference(data_base, test_ids, image_type, prompt_type, inclusion_rate_threshold, data_type, example_info_map=None,
-                            data_base_video=None, gap=None, verbose=True):
+def single_prompt_inference(data_base, test_ids, image_type, prompt_type, inclusion_rate_threshold, data_type,
+                            data_base_video=None, verbose=True):
     # select the device for computation
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -276,10 +276,7 @@ def single_prompt_inference(data_base, test_ids, image_type, prompt_type, inclus
 
         # print('processing', i, '/', len(test_ids), ':', test_id)
 
-        if example_info_map is not None:
-            mask_dilate_size = example_info_map[str(test_id)]["target_layer_gen_configs"]["mask_dilate_size"]
-        else:
-            mask_dilate_size = 5
+        mask_dilate_size = example_info_map[str(test_id)]["target_layer_gen_configs"]["mask_dilate_size"]
 
         # `video_dir` a directory of JPEG frames with filenames like `<frame_index>.jpg`
         if data_base_video is None:
@@ -411,7 +408,7 @@ def single_prompt_inference(data_base, test_ids, image_type, prompt_type, inclus
 
 
 def multi_prompt_inference(data_base, test_ids, image_prompt_types, inclusion_rate_threshold, data_type,
-                           remove_intermediate_files=False, gap=None, verbose=True):
+                           remove_intermediate_files=False, verbose=True):
     save_base_layer = os.path.join(data_base, 'layers', "[both]")
 
     for i, test_id in enumerate(test_ids):
@@ -474,15 +471,6 @@ def multi_prompt_inference(data_base, test_ids, image_prompt_types, inclusion_ra
 
 
 def inference_single_img_main(data_base, image_id, inclusion_rate_threshold=0.8):
-    example_configs_path = "configs/example_configs.json"
-
-    if '-Gen1' in data_base:
-        example_configs_path = example_configs_path[:-5] + "_gen1.json"
-    elif '-Gen2' in data_base:
-        example_configs_path = example_configs_path[:-5] + "_gen2.json"
-    with open(example_configs_path, "r") as load_f:
-        example_info_map = json.load(load_f)
-
     target_layer_method = example_info_map[str(image_id)]["target_layer_method"]
     if target_layer_method == "box_depth":
         image_prompt_types_group = [
@@ -515,8 +503,7 @@ def inference_single_img_main(data_base, image_id, inclusion_rate_threshold=0.8)
         if len(image_prompt_types) == 1:
             image_type = image_prompt_types[0][0]
             prompt_type = image_prompt_types[0][1]
-            single_prompt_inference(data_base, [image_id], image_type, prompt_type, inclusion_rate_threshold, data_type='real',
-                                    example_info_map=example_info_map)
+            single_prompt_inference(data_base, [image_id], image_type, prompt_type, inclusion_rate_threshold, data_type='real')
         else:
             multi_prompt_inference(data_base, [image_id], image_prompt_types, inclusion_rate_threshold, data_type='real')
 

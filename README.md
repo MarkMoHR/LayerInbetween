@@ -129,10 +129,23 @@ PYTHONPATH=. python data_preprocessing/combine_two_directions.py
 Afterward, the results are saved to the `outputs/stroke_correspondence_results/[1comb]` folder.
 
 
-### TODOs
+## Multi-frame Prediction
+
+### Input Preparation
+
+1. We first define the `K`-th generation: `K=1` denotes the second generation (3 keyframes); `K=2` denotes the third generation (4 keyframes); etc.
+
+2. Place raster keyframes to `test_examples-GenK/raster_black/` (replace `K` with 1, 2, ...). Note that the `X_ref.png` should be the `X_tar.png` in the `K-1`-th generation.
+
+3. Copy the output vector parameters (e.g., `outputs/stroke_correspondence_results/[1comb]/vector-params/X_tar.jsonl`) to `test_examples-GenK/vector-params/` folder, and rename it to `X_ref.jsonl`. Note that if inverse prediction was not done in the `K-1`-th generation, the [Step 3: Combine Two Directions](#step-3-combine-two-directions) should also be executed.
+
+### Run
+
+Go to [configs/example_configs.py](configs/example_configs.py), and set the `gen_time` to `K`. Then, perform the Step 1 to Step 3 above again.
+
+## TODOs
 
 - [ ] Occlusion resolving after interpolation
-- [ ] Multi-frame prediction
 
 
 ## Citation

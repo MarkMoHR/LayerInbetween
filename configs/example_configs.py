@@ -11,6 +11,7 @@ if gen_time == 0:
     example_configs_path = "configs/example_configs.json"
 else:
     example_configs_path = "configs/example_configs_gen%d.json" % gen_time
+    test_data_base += "-Gen%d" % gen_time
 
 with open(example_configs_path, "r") as load_f:
     example_info_map = json.load(load_f)

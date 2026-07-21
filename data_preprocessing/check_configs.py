@@ -1,7 +1,7 @@
 import json
 import shutil
 from copy import deepcopy
-from configs.example_configs import test_img_id, example_info_map, example_configs_path
+from configs.example_configs import test_img_id, example_info_map, example_configs_path, gen_time
 
 
 def ensure_test_img_config(test_img_id, example_info_map, example_configs_path):
@@ -32,6 +32,17 @@ def ensure_test_img_config(test_img_id, example_info_map, example_configs_path):
             "manual_order": None,
         }
     }
+
+    if gen_time > 0:
+        # Copy the configuration from the previous generation if it exists
+        prev_example_configs_path = "configs/example_configs_gen%d.json" % (gen_time - 1) \
+            if gen_time > 1 else "configs/example_configs.json"
+        with open(prev_example_configs_path, "r") as load_f:
+            prev_example_info_map = json.load(load_f)
+
+        if test_img_key in prev_example_info_map:
+            default_example = deepcopy(prev_example_info_map[test_img_key])
+
     example_info_map[test_img_key] = default_example
 
     temp_path = example_configs_path + ".tmp"

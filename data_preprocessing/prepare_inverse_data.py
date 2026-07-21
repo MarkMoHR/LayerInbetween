@@ -18,7 +18,7 @@ def write_svg(database, process_img_id):
 
     data_base_extra = "outputs/stroke_correspondence_results"
     if gen_time > 0:
-        data_base_extra += '-[Gen%d]' % gen_time
+        data_base_extra += '-Gen%d' % gen_time
 
     params_path = os.path.join(data_base_extra, 'params', 'tar_pred-' + str(process_img_id) + '.jsonl')
     with open(params_path, "r+") as f:
