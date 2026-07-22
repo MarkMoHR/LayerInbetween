@@ -135,7 +135,7 @@ def combine_single_image_v0(params_path_ref0, params_path_ref1, params_path_tar0
 
     if not os.path.exists(params_path_tar1):  # w/o inverse prediction; should be Gen>0?
         assert not os.path.exists(params_path_ref1)
-        assert curves_endpoint_connected_state_ref0 is not None
+        # assert curves_endpoint_connected_state_ref0 is not None
         params_tar1 = [[] for _ in range(len(params_tar0))]
         curves_endpoint_connected_state_tar1 = [[] for _ in range(len(params_tar0))]
     else:

@@ -120,6 +120,8 @@ This script also includes several sub-processes. Finally, the output results of 
 
 ### Step 3: Combine Two Directions
 
+> Note that this step should be done even if the [Step 2: Inverse Prediction](#step-2-inverse-prediction) is not done
+
 Combine the results of the two directions using the following command:
 
 ```bash
@@ -127,6 +129,23 @@ PYTHONPATH=. python data_preprocessing/combine_two_directions.py
 ```
 
 Afterward, the results are saved to the `outputs/stroke_correspondence_results/[1comb]` folder.
+
+
+### Step 4: Inbetweening
+
+This step includes several sup-processes: stroke interpolation, occlusion mask generation, occlusion resolving, and inbetweening visualization.
+
+Run the following command:
+
+```bash
+sh run_inbetweening.sh
+```
+
+Then, you can see:
+- Original inbetweening frames in `outputs/inbetweening_results/X/linearts/`
+- Inbetweening frames with occlusion resolved in `outputs/inbetweening_results/X/linearts_occ_resolve/`
+- Inbetweening gif in `outputs/inbetweening_results/X/gifs/`
+- Inbetweening image visualization in `outputs/inbetweening_results/X/inbetween_img/`
 
 
 ## Multi-frame Prediction
@@ -143,9 +162,7 @@ Afterward, the results are saved to the `outputs/stroke_correspondence_results/[
 
 Go to [configs/example_configs.py](configs/example_configs.py), and set the `gen_time` to `K`. Then, perform the Step 1 to Step 3 above again.
 
-## TODOs
 
-- [ ] Occlusion resolving after interpolation
 
 
 ## Citation
