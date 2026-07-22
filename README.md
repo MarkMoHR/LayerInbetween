@@ -133,7 +133,7 @@ Afterward, the results are saved to the `outputs/stroke_correspondence_results/[
 
 ### Step 4: Inbetweening
 
-This step includes several sup-processes: stroke interpolation, occlusion mask generation, occlusion resolving, and inbetweening visualization.
+This step includes several sub-processes: stroke interpolation, occlusion mask generation, occlusion resolving, and inbetweening visualization.
 
 Run the following command:
 
@@ -154,7 +154,7 @@ Then, you can see:
 
 1. We first define the `K`-th generation: `K=1` denotes the second generation (3 keyframes); `K=2` denotes the third generation (4 keyframes); etc.
 
-2. Place raster keyframes to `test_examples-GenK/raster_black/` (replace `K` with 1, 2, ...). Note that the `X_ref.png` should be the `X_tar.png` in the `K-1`-th generation.
+2. Place raster keyframes in `test_examples-GenK/raster_black/` (replace `K` with 1, 2, ...). Note that the `X_ref.png` should be the `X_tar.png` in the `K-1`-th generation.
 
 3. Copy the output vector parameters (e.g., `outputs/stroke_correspondence_results/[1comb]/vector-params/X_tar.jsonl`) to `test_examples-GenK/vector-params/` folder, and rename it to `X_ref.jsonl`. Note that if inverse prediction was not done in the `K-1`-th generation, the [Step 3: Combine Two Directions](#step-3-combine-two-directions) should also be executed.
 
